@@ -15,202 +15,204 @@ export const TRANSLATIONS: Record<LanguageCode, ContentTranslation> = {
     nav: { pdk: 'Opções PDK', tools: 'Ferramentas', flow: 'Fluxo', resources: 'Recursos' },
     hero: {
       title: <>Prototipagem de CIs com Ferramentas de <span className="text-blue-600">Código Aberto</span>.</>,
-      description: 'A era do design de semicondutores proprietários está em evolução. Os OpenPDKs e fluxos académicos democratizam a investigação nesta área, permitindo que investigadores e engenheiros criem e simulem circuitos integrados utilizando kits de processo gratuitos e de nível industrial.'
+      description: 'Democratizando o design de semicondutores. Com iniciativas como o IHP OpenPDK e o programa Google Open MPW, pesquisadores e engenheiros podem agora projetar circuitos integrados de alta performance sem barreiras de licenciamento ou NDAs restritivos.'
     },
     intro: {
-      title: 'Porquê utilizar OpenPDK?',
-      description: 'Um Process Design Kit (PDK) é o elo fundamental entre o projetista e a unidade de fabrico (fab). Os OpenPDKs tornam esta documentação técnica acessível a toda a comunidade, eliminando a burocracia dos acordos de confidencialidade (NDAs).',
+      title: 'A Necessidade de Talentos',
+      description: 'A indústria global enfrenta uma escassez crítica de talentos em microeletrônica. Estima-se um déficit de mais de 100.000 engenheiros na Europa até 2030. Os OpenPDKs surgem como a solução educacional e técnica fundamental para capacitar a próxima geração de designers de chips.',
       bullets: [
-        'Acesso livre a parâmetros tecnológicos avançados.',
-        'Desenvolvimento de hardware colaborativo via GitHub.',
-        'Curva de aprendizagem acelerada em microelectrónica.',
-        'Resultados de investigação transparentes e reprodutíveis.'
+        'Acesso total a parâmetros tecnológicos (IHP, SkyWater, GF).',
+        'Capacitação técnica através de fluxos "Full-stack" (do RTL ao GDSII).',
+        'Iniciativas globais como "One Student One Chip" e o projeto brasileiro "CI Aberto".',
+        'Redução drástica dos custos de Tapeout para fins acadêmicos e de P&D.'
       ],
-      illustration: 'Diagrama de Empilhamento de Camadas'
+      illustration: 'Diagrama de Processo SG13G2'
     },
     pdkSection: {
-      title: 'Opções de PDK Suportadas',
-      description: 'Processos industriais optimizados para experimentação técnica e académica.',
+      title: 'Opções de PDK e Iniciativas',
+      description: 'Processos industriais qualificados disponíveis para a comunidade de hardware aberto.',
       options: [
-        { id: 'ihp', name: 'IHP SG13G2', description: 'PDK de código aberto BiCMOS de 130nm.', details: 'Tecnologia alemã de alta performance, ideal para frequências elevadas e projectos analógicos.' },
-        { id: 'gf', name: 'GlobalFoundries 180MCU', description: 'Tecnologia CMOS de 180nm.', details: 'Integrado no programa Open MPW para prototipagem académica e soluções IoT.' },
-        { id: 'sky', name: 'SkyWater SKY130', description: 'O primeiro PDK open-source da indústria.', details: 'Processo híbrido de 130nm que serviu de base para o movimento moderno de hardware aberto.' }
+        { id: 'ihp', name: 'IHP SG13G2', description: '130nm BiCMOS de alto desempenho.', details: 'Oferece f_t/f_max de 350/450 GHz, ideal para RF, mm-Wave e aplicações espaciais ou criogênicas.' },
+        { id: 'sky', name: 'SkyWater SKY130', description: 'O pioneiro 130nm CMOS open-source.', details: 'Base para o programa Open MPW da Google/Efabless, permitindo fabricação gratuita para projetos abertos.' },
+        { id: 'gf', name: 'GlobalFoundries 180MCU', description: 'Tecnologia 180nm CMOS para sinais mistos.', details: 'Focado em IoT e aplicações de baixa potência, suportado por fluxos de design automatizados como OpenLane.' }
       ]
     },
     toolsSection: {
-      title: 'Ecossistema de Ferramentas',
-      description: 'A suíte de software EDA necessária para transformar conceitos em silício.',
+      title: 'Ecossistema EDA Livre',
+      description: 'Uma cadeia de ferramentas completa para design analógico, digital e RF.',
       tools: [
-        { id: 'xschem', name: 'Xschem', category: 'Front-end', description: 'Editor de esquemáticos focado em VLSI e simulação de circuitos.' },
-        { id: 'ngspice', name: 'Ngspice', category: 'Simulação', description: 'Simulador de sinal misto para validação eléctrica rigorosa.' },
-        { id: 'magic', name: 'Magic', category: 'Layout', description: 'Ferramenta interactiva de layout com verificação DRC em tempo real.' },
-        { id: 'klayout', name: 'KLayout', category: 'Layout/Vista', description: 'Visualizador de máscaras de alta performance compatível com Python.' },
-        { id: 'openlane', name: 'OpenLane', category: 'RTL-to-GDS', description: 'Fluxo digital automatizado para implementação completa de sistemas.' },
-        { id: 'netgen', name: 'Netgen', category: 'Verificação', description: 'Ferramenta de comparação LVS para garantir a integridade do design.' }
+        { id: 'xschem', name: 'Xschem / QUCS-S', category: 'Esquema', description: 'Captura de esquemáticos hierárquicos e configuração de simulações SPICE.' },
+        { id: 'ngspice', name: 'Ngspice / Xyce', category: 'Simulação', description: 'Simuladores de alto desempenho para validação elétrica e análise de ruído.' },
+        { id: 'magic', name: 'Magic VLSI', category: 'Layout', description: 'Ferramenta interativa de layout com DRC em tempo real e extração de parasitas.' },
+        { id: 'klayout', name: 'KLayout', category: 'Máscaras', description: 'Visualizador e editor GDSII/OASIS com suporte a scripts Python e Pcell.' },
+        { id: 'openems', name: 'OpenEMS', category: 'EM Solver', description: 'Simulador eletromagnético 3D FDTD para modelagem de indutores e antenas.' },
+        { id: 'openvaf', name: 'OpenVAF', category: 'Verilog-A', description: 'Compilador Verilog-A de próxima geração para modelos de dispositivos compactos.' }
       ]
     },
     flowSection: {
-      title: 'Fluxo de Trabalho de Prototipagem',
-      description: 'O percurso padrão para o desenvolvimento de um circuito integrado customizado.',
+      title: 'Fluxo Sugerido: Do Código ao Chip',
+      description: 'Siga o percurso de design utilizado em universidades líderes como ETH Zürich e Stanford.',
       steps: [
-        { id: 1, label: 'Captura de Esquemático', description: 'Definição da lógica e parâmetros fundamentais.' },
-        { id: 2, label: 'Simulação SPICE', description: 'Validação do comportamento e performance eléctrica.' },
-        { id: 3, label: 'Layout Físico', description: 'Desenho das máscaras e geometria física do chip.' },
-        { id: 4, label: 'DRC & LVS', description: 'Verificação de regras físicas e consistência lógica.' },
-        { id: 5, label: 'Exportação GDSII', description: 'Geração dos ficheiros finais para fabricação.' }
+        { id: 1, label: 'Especificação & RTL', description: 'Definição da arquitetura (ex: RISC-V) ou esquema analógico.' },
+        { id: 2, label: 'Simulação Funcional', description: 'Validação com Ngspice ou modelos Verilog-A via OpenVAF.' },
+        { id: 3, label: 'Síntese & P&R', description: 'Uso de OpenLane ou OpenROAD para automação física digital.' },
+        { id: 4, label: 'Verificação Física', description: 'Checagem final de regras (DRC) e consistência (LVS) com Netgen.' },
+        { id: 5, label: 'Tapeout MPW', description: 'Submissão do GDSII para fabricação via Efabless ou IHP MPW.' }
       ]
     },
     resourcesSection: {
-      title: 'Recursos e Comunidade',
-      description: 'Documentação técnica e redes de colaboração que sustentam este ecossistema.',
-      roadmapTitle: 'Roteiro de Desenvolvimento',
-      roadmapDescription: 'Este movimento está em constante expansão. No futuro, planeamos integrar:',
+      title: 'Recursos e Projetos',
+      description: 'Links fundamentais para a comunidade luso-brasileira e global de microeletrônica.',
+      roadmapTitle: 'Desafios e Oportunidades',
+      roadmapDescription: 'O futuro do design de CIs abertos foca na automação de sinais mistos e interoperabilidade entre ferramentas:',
       roadmapFeatures: [
-        'Automação de Layout Analógico via IA',
-        'Revisões de Design Colaborativas em Tempo Real',
-        'Bibliotecas de IPs Abertas e Caracterizadas',
-        'Sistemas Cloud para Verificação Automática'
+        'Projeto "CI Aberto" (UFRGS) para curadoria em português',
+        'Iniciativa "One Student One Chip" (Processadores RISC-V)',
+        'Automação de Layout Analógico (Framework ALIGN)',
+        'Integração de modelagem criogênica para computação quântica'
       ]
     },
     footer: {
-      rights: 'Todos os direitos reservados.'
+      rights: 'Inspirado na Iniciativa IHP OpenPDK e no esforço global por silício aberto.'
     }
   },
   en: {
     nav: { pdk: 'PDK Options', tools: 'Tools', flow: 'Workflow', resources: 'Resources' },
     hero: {
       title: <>Prototyping ICs with <span className="text-blue-600">Open-Source</span> Tools.</>,
-      description: 'The era of closed-source silicon design is evolving. OpenPDKs and academic flows are democratizing semiconductor research, allowing anyone to design and simulate integrated circuits using free, industrial-grade process kits.'
+      description: 'Democratizing semiconductor design. With initiatives like the IHP OpenPDK and Google Open MPW, researchers and engineers can now design high-performance integrated circuits without the friction of licensing or restrictive NDAs.'
     },
     intro: {
-      title: 'Why OpenPDK?',
-      description: 'A Process Design Kit (PDK) provides the essential link between a designer and the fab. OpenPDKs make this information accessible to researchers, hobbyists, and students without the friction of NDAs.',
+      title: 'The Talent Gap Challenge',
+      description: 'The global semiconductor industry faces a critical talent shortage, with over 100,000 engineering vacancies expected in the EU by 2030. OpenPDKs serve as the essential educational and technical foundation to empower the next generation of chip designers.',
       bullets: [
-        'Zero-cost access to technology parameters.',
-        'Collaborative hardware design on GitHub.',
-        'Accelerated learning for semiconductor engineering.',
-        'Transparent and reproducible research results.'
+        'Full-stack access to technology parameters (IHP, SkyWater, GF).',
+        'Technical training through "RTL-to-GDSII" workflows.',
+        'Global initiatives like "One Student One Chip" and SSCS PICO.',
+        'Drastic reduction in tapeout costs for academic R&D.'
       ],
-      illustration: 'Illustration of Layer Stacking'
+      illustration: 'SG13G2 Process Diagram'
     },
     pdkSection: {
-      title: 'Supported PDK Options',
-      description: 'Industrial processes now available for open-source and academic experimentation.',
+      title: 'PDK Options & Initiatives',
+      description: 'Industrial qualified processes available for the open hardware community.',
       options: [
-        { id: 'ihp', name: 'IHP SG13G2', description: '130nm BiCMOS Open Source PDK.', details: 'A high-performance technology from Germany focused on high-frequency and analog designs.' },
-        { id: 'gf', name: 'GlobalFoundries 180MCU', description: '180nm CMOS technology.', details: 'Part of the Google-sponsored Open MPW program for academic and IoT-focused prototyping.' },
-        { id: 'sky', name: 'SkyWater SKY130', description: 'The industry-first open-source PDK.', details: 'A 130nm hybrid process that sparked the modern open-source IC movement.' }
+        { id: 'ihp', name: 'IHP SG13G2', description: 'High-performance 130nm BiCMOS.', details: 'Offers f_t/f_max of 350/450 GHz, ideal for RF, mm-Wave, and cryo/space applications.' },
+        { id: 'sky', name: 'SkyWater SKY130', description: 'Pioneering 130nm CMOS open PDK.', details: 'The foundation for the Google/Efabless Open MPW program, offering free fabrication for open projects.' },
+        { id: 'gf', name: 'GlobalFoundries 180MCU', description: '180nm CMOS technology for mixed-signal.', details: 'Focused on IoT and low-power applications, supported by automated flows like OpenLane.' }
       ]
     },
     toolsSection: {
-      title: 'Open-Source Toolchain',
-      description: 'The EDA suite required to go from concept to silicon.',
+      title: 'Open EDA Toolchain',
+      description: 'A complete suite for analog, digital, and RF design from code to chip.',
       tools: [
-        { id: 'xschem', name: 'Xschem', category: 'Front-end', description: 'Schematic editor for VLSI design and simulation setup.' },
-        { id: 'ngspice', name: 'Ngspice', category: 'Simulation', description: 'Mixed-level/mixed-signal circuit simulator for analog verification.' },
-        { id: 'magic', name: 'Magic', category: 'Layout', description: 'Interactive VLSI layout tool with real-time DRC checking.' },
-        { id: 'klayout', name: 'KLayout', category: 'Layout/Viewing', description: 'High-performance layout viewer and editor with Python scripting.' },
-        { id: 'openlane', name: 'OpenLane', category: 'RTL-to-GDS', description: 'Automated digital flow implementing a complete silicon synthesis.' },
-        { id: 'netgen', name: 'Netgen', category: 'Verification', description: 'LVS (Layout vs Schematic) verification tool for silicon accuracy.' }
+        { id: 'xschem', name: 'Xschem / QUCS-S', category: 'Schematic', description: 'Hierarchical schematic capture and SPICE simulation setup.' },
+        { id: 'ngspice', name: 'Ngspice / Xyce', category: 'Simulation', description: 'High-performance simulators for electrical validation and noise analysis.' },
+        { id: 'magic', name: 'Magic VLSI', category: 'Layout', description: 'Interactive VLSI layout tool with real-time DRC checking and extraction.' },
+        { id: 'klayout', name: 'KLayout', category: 'Masks', description: 'High-performance GDSII/OASIS viewer/editor with Python scriptable Pcells.' },
+        { id: 'openems', name: 'OpenEMS', category: 'EM Solver', description: '3D FDTD electromagnetic simulator for inductor and antenna modeling.' },
+        { id: 'openvaf', name: 'OpenVAF', category: 'Verilog-A', description: 'Next-generation Verilog-A compiler for compact device models.' }
       ]
     },
     flowSection: {
-      title: 'Example Prototyping Flow',
-      description: 'The typical journey of a custom IC designer.',
+      title: 'Workflow: From Code to Silicon',
+      description: 'Follow the design journey used by leading research institutions like ETH Zürich and Stanford.',
       steps: [
-        { id: 1, label: 'Schematic Capture', description: 'Designing circuit logic and parameters.' },
-        { id: 2, label: 'SPICE Simulation', description: 'Verifying electrical behavior.' },
-        { id: 3, label: 'Physical Layout', description: 'Creating the geometric representation.' },
-        { id: 4, label: 'DRC & LVS', description: 'Checking design rules and consistency.' },
-        { id: 5, label: 'GDSII Export', description: 'Generating final stream for fabrication.' }
+        { id: 1, label: 'Spec & RTL', description: 'Define architecture (e.g., RISC-V) or analog schematics.' },
+        { id: 2, label: 'Functional Simulation', description: 'Verify with Ngspice or Verilog-A models via OpenVAF.' },
+        { id: 3, label: 'Synthesis & P&R', description: 'Use OpenLane or OpenROAD for automated physical digital design.' },
+        { id: 4, label: 'Physical Verification', description: 'Final DRC rules check and LVS consistency using Netgen.' },
+        { id: 5, label: 'MPW Tapeout', description: 'Submit GDSII for fabrication through Efabless or IHP MPW runs.' }
       ]
     },
     resourcesSection: {
-      title: 'Resources & Links',
-      description: 'Connect with the community and explore the documentation that powers the ecosystem.',
-      roadmapTitle: 'Future Work / Roadmap',
-      roadmapDescription: 'The open-source IC movement is just getting started. We are working towards an integrated hub that features:',
+      title: 'Resources & Projects',
+      description: 'Key documentation and global communities powering the open IC movement.',
+      roadmapTitle: 'Challenges & Opportunities',
+      roadmapDescription: 'The future of open-source IC design targets mixed-signal automation and tool interoperability:',
       roadmapFeatures: [
-        'AI-Assisted Analog Layout Generation',
-        'Collaborative Design Reviews',
-        'Shared IP Libraries & Characterization',
-        'Cloud-based CI/CD for GDSII Verification'
+        'CI Aberto Project (Brazil) for local curation',
+        'One Student One Chip Initiative (China)',
+        'Analog Layout Automation (ALIGN Framework)',
+        'Cryogenic modeling for Quantum Computing'
       ]
     },
     footer: {
-      rights: 'All rights reserved.'
+      rights: 'Inspired by the IHP OpenPDK Initiative and the global FOSS silicon movement.'
     }
   },
   es: {
     nav: { pdk: 'Opciones PDK', tools: 'Herramientas', flow: 'Flujo', resources: 'Recursos' },
     hero: {
       title: <>Prototipado de CIs con Herramientas de <span className="text-blue-600">Código Abierto</span>.</>,
-      description: 'La era del diseño de silicio propietario está evolucionando. Los OpenPDKs y los flujos académicos democratizan la investigación de semiconductores, permitiendo el diseño y simulación de circuitos integrados con kits profesionales gratuitos.'
+      description: 'Democratizando el diseño de semiconductores. Con iniciativas como IHP OpenPDK y Google Open MPW, ingenieros y estudiantes pueden diseñar circuitos integrados de alta performance sin barreras legales o NDAs.'
     },
     intro: {
-      title: '¿Por qué usar OpenPDK?',
-      description: 'Un Process Design Kit (PDK) es el vínculo esencial entre el diseñador y la fábrica. Los OpenPDKs hacen que esta información sea accesible sin las barreras legales de los contratos de confidencialidad (NDA).',
+      title: 'El Reto del Talento',
+      description: 'La industria global enfrenta una escasez crítica de ingenieros. Se estima un déficit de 100,000 puestos en Europa para 2030. Los OpenPDKs son la base educativa para capacitar a la próxima generación de diseñadores de chips.',
       bullets: [
-        'Acceso gratuito a parámetros tecnológicos de vanguardia.',
-        'Desarrollo de hardware colaborativo mediante GitHub.',
-        'Curva de aprendizaje acelerada en microelectrónica.',
-        'Resultados de investigación transparentes y verificables.'
+        'Acceso total a parámetros tecnológicos avanzados (IHP, SkyWater, GF).',
+        'Capacitación técnica en flujos completos "RTL-to-GDSII".',
+        'Iniciativas globales como "One Student One Chip" y SSCS PICO.',
+        'Reducción drástica de costos de fabricación para I+D académico.'
       ],
-      illustration: 'Ilustración de Capas de Proceso'
+      illustration: 'Esquema de Proceso SG13G2'
     },
     pdkSection: {
-      title: 'Opciones de PDK Disponibles',
-      description: 'Procesos industriales listos para la experimentación académica y el prototipado rápido.',
+      title: 'Opciones PDK e Iniciativas',
+      description: 'Procesos industriales calificados disponibles para la comunidad de hardware abierto.',
       options: [
-        { id: 'ihp', name: 'IHP SG13G2', description: 'PDK open-source BiCMOS de 130nm.', details: 'Tecnología alemana de alto rendimiento enfocada en radiofrecuencia y señales analógicas.' },
-        { id: 'gf', name: 'GlobalFoundries 180MCU', description: 'Tecnología CMOS de 180nm.', details: 'Parte del ecosistema Google Open MPW para prototipado académico y dispositivos IoT.' },
-        { id: 'sky', name: 'SkyWater SKY130', description: 'El primer PDK open-source comercial del mundo.', details: 'Proceso híbrido de 130nm que impulsó el ecosistema actual de hardware libre.' }
+        { id: 'ihp', name: 'IHP SG13G2', description: '130nm BiCMOS de alta performance.', details: 'Ofrece f_t/f_max de 350/450 GHz, ideal para RF, mm-Wave y aplicaciones espaciales.' },
+        { id: 'sky', name: 'SkyWater SKY130', description: 'Pionero 130nm CMOS open-source.', details: 'Base del programa Open MPW de Google/Efabless, permitiendo fabricación gratuita para proyectos abiertos.' },
+        { id: 'gf', name: 'GlobalFoundries 180MCU', description: 'Tecnología 180nm CMOS para señales mixtas.', details: 'Enfocado en IoT y baja potencia, soportado por flujos automatizados como OpenLane.' }
       ]
     },
     toolsSection: {
-      title: 'Suite de Herramientas EDA',
-      description: 'El conjunto de software necesario para llevar un diseño desde la idea hasta el silicio.',
+      title: 'Ecosistema EDA Libre',
+      description: 'Suite completa de software para diseño analógico, digital y RF.',
       tools: [
-        { id: 'xschem', name: 'Xschem', category: 'Front-end', description: 'Editor de esquemas optimizado para diseño VLSI y simulación.' },
-        { id: 'ngspice', name: 'Ngspice', category: 'Simulación', description: 'Simulador de circuitos para validación eléctrica y funcional.' },
-        { id: 'magic', name: 'Magic', category: 'Layout', description: 'Herramienta interactiva de layout con chequeo DRC en tiempo real.' },
-        { id: 'klayout', name: 'KLayout', category: 'Layout/Vista', description: 'Potente visor y editor de máscaras compatible con scripts de Python.' },
-        { id: 'openlane', name: 'OpenLane', category: 'RTL-to-GDS', description: 'Flujo digital automatizado que realiza la síntesis completa del chip.' },
-        { id: 'netgen', name: 'Netgen', category: 'Verificación', description: 'Herramienta de comparación LVS para asegurar la integridad física.' }
+        { id: 'xschem', name: 'Xschem / QUCS-S', category: 'Esquema', description: 'Captura de esquemáticos jerárquicos y configuración de simulaciones.' },
+        { id: 'ngspice', name: 'Ngspice / Xyce', category: 'Simulación', description: 'Simuladores de alto rendimiento para validación eléctrica y análisis de ruido.' },
+        { id: 'magic', name: 'Magic VLSI', category: 'Layout', description: 'Herramienta interactiva de layout con DRC en tiempo real.' },
+        { id: 'klayout', name: 'KLayout', category: 'Máscaras', description: 'Visor y editor GDSII compatible con scripts Python y Pcells.' },
+        { id: 'openems', name: 'OpenEMS', category: 'EM Solver', description: 'Simulador electromagnético 3D FDTD para modelado de antenas e inductores.' },
+        { id: 'openvaf', name: 'OpenVAF', category: 'Verilog-A', description: 'Compilador Verilog-A de próxima generación para modelos compactos.' }
       ]
     },
     flowSection: {
-      title: 'Flujo de Diseño Recomendado',
-      description: 'El estándar de la industria para el desarrollo de circuitos integrados personalizados.',
+      title: 'Flujo de Trabajo Sugerido',
+      description: 'El camino del diseño utilizado en instituciones líderes como ETH Zürich y Stanford.',
       steps: [
-        { id: 1, label: 'Captura de Esquema', description: 'Definición de la lógica y los parámetros del circuito.' },
-        { id: 2, label: 'Simulación SPICE', description: 'Validación del comportamiento eléctrico esperado.' },
-        { id: 3, label: 'Layout Físico', description: 'Creación de la representación geométrica de las máscaras.' },
-        { id: 4, label: 'DRC & LVS', description: 'Verificación de reglas de diseño y consistencia física.' },
-        { id: 5, label: 'Exportación GDSII', description: 'Generación del archivo final listo para la fabricación.' }
+        { id: 1, label: 'Especificación & RTL', description: 'Definición de arquitectura (ej: RISC-V) o esquemas analógicos.' },
+        { id: 2, label: 'Simulación Funcional', description: 'Validación con Ngspice o modelos Verilog-A vía OpenVAF.' },
+        { id: 3, label: 'Síntesis & P&R', description: 'Uso de OpenLane o OpenROAD para automatización física.' },
+        { id: 4, label: 'Verificación Física', description: 'Chequeo de reglas (DRC) y consistencia (LVS) con Netgen.' },
+        { id: 5, label: 'Tapeout MPW', description: 'Envío de GDSII para fabricación vía Efabless o IHP MPW.' }
       ]
     },
     resourcesSection: {
-      title: 'Recursos y Comunidad',
-      description: 'Conéctese con expertos y acceda a la documentación técnica del ecosistema.',
-      roadmapTitle: 'Hoja de Ruta / Futuro',
-      roadmapDescription: 'El ecosistema de código abierto sigue creciendo. Próximamente incluiremos:',
+      title: 'Recursos y Proyectos',
+      description: 'Documentación técnica y comunidades globales que impulsan el hardware abierto.',
+      roadmapTitle: 'Hoja de Ruta',
+      roadmapDescription: 'El futuro del diseño abierto se centra en la automatización de señales mixtas e interoperabilidad:',
       roadmapFeatures: [
-        'Generación de Layout Analógico con IA',
-        'Revisiones de Diseño Colaborativas en la Nube',
-        'Librerías de IP Abiertas y Caracterizadas',
-        'Flujos de CI/CD para Validación GDSII'
+        'Proyecto "CI Aberto" (Brasil) para curaduría local',
+        'Iniciativa "One Student One Chip" (Procesadores RISC-V)',
+        'Automatización de Layout Analógico (ALIGN)',
+        'Modelado criogénico para computación cuántica'
       ]
     },
     footer: {
-      rights: 'Todos los derechos reservados.'
+      rights: 'Inspirado en la iniciativa IHP OpenPDK y el movimiento global de silicio abierto.'
     }
   }
 };
 
 export const RESOURCES: ResourceLink[] = [
-  { title: 'Open_PDKs Installer', url: 'https://github.com/RTimothyEdwards/open_pdks', type: 'github' },
-  { title: 'Efabless Platform', url: 'https://efabless.com/', type: 'community' },
-  { title: 'The IHP Open PDK Docs', url: 'https://github.com/IHP-GmbH/IHP-Open-PDK', type: 'docs' },
-  { title: 'SkyWater Documentation', url: 'https://skywater-pdk.readthedocs.io/', type: 'docs' }
+  { title: 'IHP OpenPDK (GitHub)', url: 'https://github.com/IHP-GmbH/IHP-Open-PDK', type: 'github' },
+  { title: 'SkyWater Open PDK', url: 'https://skywater-pdk.readthedocs.io/', type: 'docs' },
+  { title: 'CI Aberto (Brazil)', url: 'https://www.ufrgs.br/cadmicro/ciaberto/', type: 'community' },
+  { title: 'One Student One Chip (ysyx)', url: 'https://ysyx.org/en/', type: 'community' },
+  { title: 'Efabless Open MPW', url: 'https://efabless.com/open_shuttle_program', type: 'community' },
+  { title: 'FOSSEE eSim', url: 'https://esim.fossee.in/', type: 'docs' }
 ];
