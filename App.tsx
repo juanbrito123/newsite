@@ -1,42 +1,42 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TRANSLATIONS, LANGUAGES, LanguageCode, RESOURCES } from './constants';
-import { CpuIcon, LayersIcon, ExternalLinkIcon } from './components/Icons';
+import { CpuIcon, LayersIcon, ExternalLinkIcon, ToolIcon } from './components/Icons';
 import Card from './components/Card';
+import { PDKOption, Tool, FlowStep } from './types';
+
+type Page = 'home' | 'pdk' | 'tools' | 'flow' | 'resources';
 
 interface NavbarProps {
   currentLang: LanguageCode;
   setLang: (lang: LanguageCode) => void;
+  currentPage: Page;
+  setCurrentPage: (page: Page) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ currentLang, setLang }) => {
+const Navbar: React.FC<NavbarProps> = ({ currentLang, setLang, currentPage, setCurrentPage }) => {
   const t = TRANSLATIONS[currentLang];
-
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const yOffset = -80; 
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
 
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-emerald-100 shadow-sm">
       <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="brazil-gradient p-2 rounded-xl text-white shadow-lg shadow-emerald-200">
+        <button onClick={() => setCurrentPage('home')} className="flex items-center gap-3 group">
+          <div className="brazil-gradient p-2 rounded-xl text-white shadow-lg shadow-emerald-200 group-hover:scale-110 transition-transform">
             <CpuIcon />
           </div>
           <span className="font-extrabold text-xl tracking-tight text-emerald-900">OpenIC <span className="text-emerald-500">Brasil</span></span>
-        </div>
+        </button>
         
         <div className="hidden md:flex gap-8 text-sm font-bold text-emerald-900/70">
-          <a href="#pdk" onClick={(e) => handleScroll(e, 'pdk')} className="hover:text-emerald-600 transition-all hover:scale-105">{t.nav.pdk}</a>
-          <a href="#tools" onClick={(e) => handleScroll(e, 'tools')} className="hover:text-emerald-600 transition-all hover:scale-105">{t.nav.tools}</a>
-          <a href="#flow" onClick={(e) => handleScroll(e, 'flow')} className="hover:text-emerald-600 transition-all hover:scale-105">{t.nav.flow}</a>
-          <a href="#resources" onClick={(e) => handleScroll(e, 'resources')} className="hover:text-emerald-600 transition-all hover:scale-105">{t.nav.resources}</a>
+          {(['pdk', 'tools', 'flow', 'resources'] as Page[]).map(page => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`transition-all hover:scale-105 ${currentPage === page ? 'text-emerald-600 border-b-2 border-emerald-500' : 'hover:text-emerald-600'}`}
+            >
+              {t.nav[page]}
+            </button>
+          ))}
         </div>
 
         <div className="flex items-center bg-emerald-50 p-1.5 rounded-full border border-emerald-100">
@@ -59,206 +59,216 @@ const Navbar: React.FC<NavbarProps> = ({ currentLang, setLang }) => {
   );
 };
 
-const App: React.FC = () => {
-  const [lang, setLang] = useState<LanguageCode>('pt');
-  const t = TRANSLATIONS[lang];
-
-  return (
-    <div className="min-h-screen selection:bg-amber-200 selection:text-amber-900">
-      <Navbar currentLang={lang} setLang={setLang} />
-
-      {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden">
-        {/* Abstract Colorful Shapes */}
-        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-emerald-200/30 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[400px] h-[400px] bg-amber-200/30 rounded-full blur-3xl -z-10" />
-        
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7">
-            <div className="inline-block px-4 py-1.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full mb-6 uppercase tracking-widest border border-emerald-200">
-              Ecosistema de Semicondutores Abertos
-            </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-emerald-900 leading-[1] mb-8">
-              {t.hero.title}
-            </h1>
-            <p className="text-xl text-emerald-800/70 leading-relaxed font-medium max-w-2xl">
-              {t.hero.description}
-            </p>
+const LandingPage: React.FC<{ t: any; setCurrentPage: (p: Page) => void }> = ({ t, setCurrentPage }) => (
+  <>
+    {/* Hero Section */}
+    <section className="relative py-24 px-6 overflow-hidden">
+      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-emerald-200/30 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[400px] h-[400px] bg-amber-200/30 rounded-full blur-3xl -z-10" />
+      
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-7">
+          <div className="inline-block px-4 py-1.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full mb-6 uppercase tracking-widest border border-emerald-200">
+            Latin American Silicon Innovation
           </div>
-          <div className="lg:col-span-5 relative">
-            <div className="aspect-square brazil-gradient rounded-[40px] shadow-2xl shadow-emerald-200 rotate-3 flex items-center justify-center p-12 overflow-hidden">
-              <div className="absolute inset-0 organic-pattern opacity-20" />
-              <div className="relative z-10 text-white transform -rotate-3 scale-150">
-                <CpuIcon />
-              </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-emerald-900 leading-[1] mb-8">
+            {t.hero.title}
+          </h1>
+          <p className="text-xl text-emerald-800/70 leading-relaxed font-medium max-w-2xl mb-10">
+            {t.hero.description}
+          </p>
+          <button 
+            onClick={() => setCurrentPage('flow')}
+            className="px-8 py-4 bg-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-emerald-200 hover:bg-emerald-700 transition-all hover:scale-105"
+          >
+            {t.hero.cta}
+          </button>
+        </div>
+        <div className="lg:col-span-5 relative">
+          <div className="aspect-square brazil-gradient rounded-[40px] shadow-2xl shadow-emerald-200 rotate-3 flex items-center justify-center p-12 overflow-hidden">
+            <div className="absolute inset-0 organic-pattern opacity-20" />
+            <div className="relative z-10 text-white transform -rotate-3 scale-150">
+              <CpuIcon />
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* Intro Section */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="bg-white border border-emerald-100 rounded-[40px] p-8 md:p-16 shadow-xl shadow-emerald-50/50 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8 text-emerald-50 opacity-20 rotate-12">
+    {/* PDK Summary Section */}
+    <section className="py-24 px-6 bg-emerald-900 relative overflow-hidden">
+      <div className="absolute inset-0 organic-pattern opacity-10" />
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="flex justify-between items-end mb-16 gap-6">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl font-black text-white mb-6">{t.pdkSection.title}</h2>
+            <p className="text-emerald-100/70 text-lg font-medium">{t.pdkSection.description}</p>
+          </div>
+          <button onClick={() => setCurrentPage('pdk')} className="text-emerald-400 font-bold hover:text-emerald-300 transition-colors hidden sm:block">
+            {t.pdkSection.viewDetails} →
+          </button>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8">
+          {t.pdkSection.options.map((pdk: PDKOption) => (
+            <div key={pdk.id} className="bg-emerald-800/40 backdrop-blur-md border border-emerald-700/50 p-8 rounded-[32px] hover:bg-emerald-800/60 transition-all">
+              <h3 className="text-2xl font-extrabold text-white mb-4">{pdk.name}</h3>
+              <p className="text-emerald-100/80 mb-6 leading-relaxed font-medium text-sm">{pdk.description}</p>
+              <button onClick={() => setCurrentPage('pdk')} className="text-amber-400 text-xs font-black uppercase tracking-widest hover:text-amber-300 transition-colors">
+                {t.pdkSection.viewDetails}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </>
+);
+
+const PDKPage: React.FC<{ t: any }> = ({ t }) => (
+  <div className="py-20 px-6 max-w-6xl mx-auto">
+    <h2 className="text-4xl font-black text-emerald-900 mb-12">{t.pdkSection.title}</h2>
+    <div className="space-y-12">
+      {t.pdkSection.options.map((pdk: PDKOption) => (
+        <div key={pdk.id} className="bg-white rounded-[40px] p-8 md:p-12 border border-emerald-100 shadow-xl overflow-hidden relative">
+          <div className="absolute top-0 right-0 p-8 text-emerald-50 opacity-10">
             <LayersIcon />
           </div>
-          <div className="grid md:grid-cols-2 gap-16 items-center relative z-10">
-            <div className="space-y-6">
-              <h2 className="text-4xl font-black text-emerald-900 leading-tight">{t.intro.title}</h2>
-              <p className="text-lg text-emerald-800/70 font-medium">
-                {t.intro.description}
-              </p>
-              <ul className="grid gap-4">
-                {t.intro.bullets.map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-4 text-emerald-900 font-semibold group">
-                    <div className="h-10 w-10 shrink-0 warm-accent-gradient rounded-full flex items-center justify-center text-amber-900 shadow-md group-hover:scale-110 transition-transform">
-                      <span className="text-sm font-black">{idx + 1}</span>
-                    </div>
-                    <span>{item}</span>
+          <div className="grid lg:grid-cols-12 gap-12 relative z-10">
+            <div className="lg:col-span-7">
+              <h3 className="text-3xl font-black text-emerald-900 mb-6">{pdk.name}</h3>
+              <p className="text-lg text-emerald-800/70 font-medium mb-8 leading-relaxed">{pdk.techSummary}</p>
+              <h4 className="font-bold text-emerald-900 mb-4">Typical Use Cases:</h4>
+              <ul className="grid sm:grid-cols-2 gap-3 mb-8">
+                {pdk.useCases.map((uc, i) => (
+                  <li key={i} className="flex items-center gap-2 text-emerald-700 font-medium">
+                    <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                    {uc}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="bg-stone-50 rounded-3xl p-10 border border-stone-200 shadow-inner flex flex-col items-center justify-center text-center">
-              <div className="brazil-gradient p-4 rounded-2xl text-white mb-6 shadow-lg">
-                <LayersIcon />
-              </div>
-              <p className="text-emerald-900 font-bold uppercase tracking-widest text-xs mb-6 opacity-60">{t.intro.illustration}</p>
-              <div className="w-full space-y-3">
-                <div className="h-4 brazil-gradient rounded-full w-full shadow-sm" />
-                <div className="h-4 warm-accent-gradient rounded-full w-4/5 mx-auto shadow-sm" />
-                <div className="h-4 bg-emerald-900 rounded-full w-3/4 mx-auto shadow-sm" />
-              </div>
+            <div className="lg:col-span-5 flex flex-col justify-center gap-4">
+              <a href={pdk.docsLink} target="_blank" className="p-6 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-center justify-between hover:bg-emerald-100 transition-colors group">
+                <span className="font-bold text-emerald-900">Documentation</span>
+                <ExternalLinkIcon />
+              </a>
+              <a href={pdk.mpwLink} target="_blank" className="p-6 bg-amber-50 rounded-2xl border border-amber-100 flex items-center justify-between hover:bg-amber-100 transition-colors group">
+                <span className="font-bold text-amber-900">MPW Programs</span>
+                <ExternalLinkIcon />
+              </a>
             </div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+);
 
-      {/* PDK Options */}
-      <section id="pdk" className="py-24 px-6 bg-emerald-900 relative overflow-hidden scroll-mt-20">
-        <div className="absolute inset-0 organic-pattern opacity-10" />
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">{t.pdkSection.title}</h2>
-            <p className="text-emerald-100/70 text-lg max-w-2xl font-medium">{t.pdkSection.description}</p>
+const ToolsPage: React.FC<{ t: any }> = ({ t }) => (
+  <div className="py-20 px-6 max-w-6xl mx-auto">
+    <div className="mb-16">
+      <h2 className="text-4xl font-black text-emerald-900 mb-6">{t.toolsSection.title}</h2>
+      <p className="text-emerald-800/60 text-lg font-medium">{t.toolsSection.description}</p>
+    </div>
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {t.toolsSection.tools.map((tool: Tool) => (
+        <div key={tool.id} className="group p-8 border-2 border-emerald-50 rounded-[32px] bg-white hover:border-emerald-200 transition-all hover:shadow-2xl hover:shadow-emerald-100/50">
+          <div className="flex justify-between items-start mb-6">
+            <h4 className="font-black text-xl text-emerald-900">{tool.name}</h4>
+            <span className="text-[10px] mono font-black bg-emerald-100 px-3 py-1 rounded-full text-emerald-700 uppercase tracking-widest">{tool.category}</span>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {t.pdkSection.options.map((pdk) => (
-              <div key={pdk.id} className="bg-emerald-800/40 backdrop-blur-md border border-emerald-700/50 p-8 rounded-[32px] hover:bg-emerald-800/60 transition-all hover:-translate-y-2">
-                <div className="h-12 w-12 warm-accent-gradient rounded-2xl mb-6 shadow-lg flex items-center justify-center text-amber-900 font-black">
-                  {pdk.name.split(' ')[0][0]}
-                </div>
-                <h3 className="text-2xl font-extrabold text-white mb-2">{pdk.name}</h3>
-                <p className="text-emerald-300 font-bold text-xs uppercase tracking-widest mb-6">Process Tech</p>
-                <p className="text-emerald-100/80 mb-6 leading-relaxed font-medium">{pdk.description}</p>
-                <div className="pt-6 border-t border-emerald-700 text-emerald-400 text-sm font-bold italic">
-                  {pdk.details}
-                </div>
-              </div>
-            ))}
+          <p className="text-emerald-800/70 leading-relaxed font-medium mb-6">{tool.description}</p>
+          <div className="mb-6">
+            <p className="text-[10px] font-black uppercase text-amber-600 mb-2">Installation Tip:</p>
+            <p className="text-xs text-stone-500 font-medium bg-stone-50 p-3 rounded-xl">{tool.installTip}</p>
+          </div>
+          <a href={tool.website} target="_blank" className="inline-flex items-center gap-2 text-emerald-600 font-bold text-sm hover:underline">
+            {t.toolsSection.visitSite} <ExternalLinkIcon />
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const FlowPage: React.FC<{ t: any }> = ({ t }) => (
+  <div className="py-20 px-6 max-w-6xl mx-auto">
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-black text-emerald-900 mb-6">{t.flowSection.title}</h2>
+      <p className="text-emerald-800/60 text-lg font-medium">{t.flowSection.description}</p>
+    </div>
+    <div className="space-y-12">
+      {t.flowSection.steps.map((step: FlowStep) => (
+        <div key={step.id} className="flex gap-8 group">
+          <div className="h-16 w-16 shrink-0 brazil-gradient rounded-3xl flex items-center justify-center font-black text-white text-2xl shadow-lg">
+            {step.id}
+          </div>
+          <div className="pt-2">
+            <h4 className="text-2xl font-black text-emerald-900 mb-4">{step.label}</h4>
+            <p className="text-lg text-emerald-800/70 font-medium leading-relaxed max-w-3xl">{step.details}</p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+);
 
-      {/* Toolchain */}
-      <section id="tools" className="py-24 px-6 max-w-6xl mx-auto scroll-mt-20">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl font-black text-emerald-900 mb-6">{t.toolsSection.title}</h2>
-            <p className="text-emerald-800/60 text-lg font-medium">{t.toolsSection.description}</p>
-          </div>
-          <div className="flex gap-4">
-            <div className="h-3 w-12 warm-accent-gradient rounded-full" />
-            <div className="h-3 w-3 warm-accent-gradient rounded-full" />
-          </div>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {t.toolsSection.tools.map((tool) => (
-            <div key={tool.id} className="group p-8 border-2 border-emerald-50 rounded-[32px] bg-white hover:border-emerald-200 transition-all hover:shadow-2xl hover:shadow-emerald-100/50 relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-[100px] -z-10 group-hover:bg-emerald-100 transition-colors" />
-               <div className="flex justify-between items-start mb-6">
-                <h4 className="font-black text-xl text-emerald-900 group-hover:text-emerald-600 transition-colors">{tool.name}</h4>
-                <span className="text-[10px] mono font-black bg-emerald-100 px-3 py-1 rounded-full text-emerald-700 uppercase tracking-widest">
-                  {tool.category}
-                </span>
-              </div>
-              <p className="text-emerald-800/70 leading-relaxed font-medium">{tool.description}</p>
+const ResourcesPage: React.FC<{ t: any }> = ({ t }) => (
+  <div className="py-20 px-6 max-w-6xl mx-auto">
+    <h2 className="text-4xl font-black text-emerald-900 mb-12">{t.resourcesSection.title}</h2>
+    <div className="grid md:grid-cols-2 gap-8">
+      {RESOURCES.map((link, idx) => (
+        <a 
+          key={idx} 
+          href={link.url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="p-8 rounded-[32px] bg-white border border-emerald-50 hover:border-emerald-200 hover:shadow-xl transition-all group"
+        >
+          <div className="flex justify-between items-start mb-6">
+            <div className="warm-accent-gradient p-3 rounded-2xl shadow-sm text-amber-900 group-hover:scale-110 transition-transform">
+              {link.type === 'github' ? <ToolIcon /> : <ExternalLinkIcon />}
             </div>
-          ))}
-        </div>
-      </section>
+            <span className="text-[10px] text-emerald-400 uppercase tracking-widest font-black">{link.type}</span>
+          </div>
+          <h4 className="text-xl font-black text-emerald-900 mb-3">{link.title}</h4>
+          <p className="text-emerald-800/60 font-medium leading-relaxed">{link.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+);
 
-      {/* Prototyping Flow */}
-      <section id="flow" className="py-24 px-6 bg-stone-100 scroll-mt-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-black text-emerald-900 mb-6">{t.flowSection.title}</h2>
-            <p className="text-emerald-800/60 text-lg max-w-2xl mx-auto font-medium">{t.flowSection.description}</p>
-          </div>
-          <div className="grid lg:grid-cols-5 gap-8 relative">
-            <div className="hidden lg:block absolute top-12 left-0 w-full h-1 bg-emerald-200/50 rounded-full -z-0" />
-            {t.flowSection.steps.map((step) => (
-              <div key={step.id} className="flex flex-col items-center lg:items-start text-center lg:text-left group relative">
-                <div className="h-24 w-24 brazil-gradient rounded-full flex items-center justify-center font-black text-3xl text-white mb-8 z-10 shadow-xl shadow-emerald-200 border-[8px] border-stone-100 group-hover:scale-110 transition-transform">
-                  {step.id}
-                </div>
-                <h4 className="font-black text-xl mb-4 text-emerald-900">{step.label}</h4>
-                <p className="text-emerald-800/60 text-sm font-medium leading-relaxed">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+const App: React.FC = () => {
+  const [lang, setLang] = useState<LanguageCode>('pt');
+  const [page, setPage] = useState<Page>('home');
+  const t = TRANSLATIONS[lang];
 
-      {/* Resources */}
-      <section id="resources" className="py-24 px-6 max-w-6xl mx-auto scroll-mt-20">
-        <div className="grid md:grid-cols-12 gap-16">
-          <div className="md:col-span-5">
-            <h2 className="text-4xl font-black text-emerald-900 mb-8">{t.resourcesSection.title}</h2>
-            <p className="text-emerald-800/60 mb-10 text-lg font-medium">
-              {t.resourcesSection.description}
-            </p>
-            <div className="flex flex-col gap-4">
-              {RESOURCES.map((link, idx) => (
-                <a 
-                  key={idx} 
-                  href={link.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-emerald-50 hover:border-emerald-200 hover:shadow-lg transition-all group font-bold text-emerald-900"
-                >
-                  <div className="warm-accent-gradient p-2 rounded-lg shadow-sm text-amber-900 group-hover:scale-110 transition-transform">
-                    <ExternalLinkIcon />
-                  </div>
-                  {link.title}
-                  <span className="ml-auto text-[10px] text-emerald-400 uppercase tracking-widest">{link.type}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-          <div className="md:col-span-7">
-            <div className="bg-emerald-50 rounded-[40px] p-10 md:p-14 relative overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-4 warm-accent-gradient" />
-              <h3 className="text-3xl font-black text-emerald-900 mb-6">{t.resourcesSection.roadmapTitle}</h3>
-              <p className="text-emerald-800/70 mb-10 text-lg leading-relaxed font-medium">
-                {t.resourcesSection.roadmapDescription}
-              </p>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {t.resourcesSection.roadmapFeatures.map((feature, i) => (
-                  <div key={i} className="bg-white p-6 rounded-2xl border border-emerald-100 flex items-center gap-4 hover:shadow-md transition-shadow">
-                    <div className="h-3 w-3 rounded-full brazil-gradient shadow-sm" />
-                    <span className="text-sm font-extrabold text-emerald-900">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  // Scroll to top on page change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
+  const renderContent = () => {
+    switch (page) {
+      case 'home': return <LandingPage t={t} setCurrentPage={setPage} />;
+      case 'pdk': return <PDKPage t={t} />;
+      case 'tools': return <ToolsPage t={t} />;
+      case 'flow': return <FlowPage t={t} />;
+      case 'resources': return <ResourcesPage t={t} />;
+      default: return <LandingPage t={t} setCurrentPage={setPage} />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen selection:bg-amber-200 selection:text-amber-900">
+      <Navbar currentLang={lang} setLang={setLang} currentPage={page} setCurrentPage={setPage} />
+
+      {renderContent()}
 
       {/* Footer */}
       <footer className="py-16 bg-emerald-950 text-emerald-100/50 text-sm font-medium">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12 items-center">
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex items-center gap-3">
               <div className="bg-emerald-600 p-2 rounded-lg text-white">
@@ -266,20 +276,22 @@ const App: React.FC = () => {
               </div>
               <span className="font-black text-xl tracking-tight text-white">OpenIC Hub</span>
             </div>
-            <p className="max-w-xs text-center md:text-left">
-              Fomentando a inovação de silício em toda a América Latina.
+            <p className="text-center md:text-left">
+              Fostering silicon innovation across Latin America.
             </p>
           </div>
           
-          <div className="text-center md:text-left">
-            &copy; {new Date().getFullYear()} OpenSource IC Ecosystem. <br className="md:hidden" />
+          <div className="text-center">
+            &copy; {new Date().getFullYear()} OpenSource IC Ecosystem. <br />
             {t.footer.rights}
           </div>
           
-          <div className="flex gap-8 text-emerald-100/30">
-            <a href="https://github.com/IHP-GmbH/IHP-Open-PDK" target="_blank" className="hover:text-emerald-400 transition-colors">GitHub</a>
-            <a href="https://esim.fossee.in/" target="_blank" className="hover:text-emerald-400 transition-colors">eSim</a>
-            <a href="https://www.ufrgs.br/cadmicro/ciaberto/" target="_blank" className="hover:text-emerald-400 transition-colors">CI Aberto</a>
+          <div className="flex flex-col items-center md:items-end gap-4">
+            <div className="flex gap-6 text-emerald-100/30">
+              <a href="https://github.com/IHP-GmbH/IHP-Open-PDK" target="_blank" className="hover:text-emerald-400">GitHub</a>
+              <a href="https://www.ufrgs.br/cadmicro/ciaberto/" target="_blank" className="hover:text-emerald-400">CI Aberto</a>
+            </div>
+            <p className="text-[10px] opacity-50 uppercase tracking-widest">{t.footer.contact}: info@openpdk-brasil.com.br</p>
           </div>
         </div>
       </footer>

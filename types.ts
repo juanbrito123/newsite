@@ -4,6 +4,10 @@ export interface PDKOption {
   name: string;
   description: string;
   details: string;
+  techSummary: string;
+  useCases: string[];
+  docsLink: string;
+  mpwLink: string;
 }
 
 export interface Tool {
@@ -11,22 +15,27 @@ export interface Tool {
   name: string;
   category: string;
   description: string;
+  website: string;
+  installTip: string;
 }
 
 export interface FlowStep {
   id: number;
   label: string;
   description: string;
+  details: string;
 }
 
 export interface ResourceLink {
   title: string;
   url: string;
-  type: 'github' | 'docs' | 'community';
+  type: 'github' | 'docs' | 'community' | 'course';
+  description: string;
 }
 
 export interface ContentTranslation {
   nav: {
+    home: string;
     pdk: string;
     tools: string;
     flow: string;
@@ -35,6 +44,7 @@ export interface ContentTranslation {
   hero: {
     title: React.ReactNode;
     description: string;
+    cta: string;
   };
   intro: {
     title: string;
@@ -46,16 +56,19 @@ export interface ContentTranslation {
     title: string;
     description: string;
     options: PDKOption[];
+    viewDetails: string;
   };
   toolsSection: {
     title: string;
     description: string;
     tools: Tool[];
+    visitSite: string;
   };
   flowSection: {
     title: string;
     description: string;
     steps: FlowStep[];
+    cta: string;
   };
   resourcesSection: {
     title: string;
@@ -66,5 +79,6 @@ export interface ContentTranslation {
   };
   footer: {
     rights: string;
+    contact: string;
   };
 }
