@@ -1,3 +1,5 @@
+// Added React import to provide access to the React namespace for types like ReactNode
+import React from 'react';
 
 export interface PDKOption {
   id: string;
@@ -42,6 +44,7 @@ export interface ContentTranslation {
     resources: string;
   };
   hero: {
+    // Fix: Referenced React namespace requires an import of React
     title: React.ReactNode;
     description: string;
     cta: string;
